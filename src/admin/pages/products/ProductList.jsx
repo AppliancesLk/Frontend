@@ -5,7 +5,7 @@ import ProductForm from "./ProductForm";
 
 export default function ProductList() {
   
-
+useAdminGuard();
   const [products, setProducts] = useState([]);
   const [loading, setLoading] = useState(true);
 

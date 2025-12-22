@@ -16,10 +16,7 @@ function App() {
     <AdminApp />
       <Routes>
         <Route path="/admin/login" element={<AdminLogin />} />
-      <Route element={<AdminRoutes />}>
-        <Route path="/admin" element={<AdminDashboard />} />
-      </Route>
-
+     
         <Route path="/" element={<LandingPage />} />
         <Route path="/product/:id" element={<ProductDetailPage />} />
         <Route path="/login" element={<LoginPage />} />

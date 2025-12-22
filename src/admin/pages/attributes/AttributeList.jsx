@@ -1,77 +1,47 @@
-import { useEffect, useState } from "react";
-import useAdminGuard from "../../hooks/useAdminGuard";
-import { getAttributes } from "../../api/attribute.api";
-import AttributeForm from "./AttributeForm";
+import React from "react";
 
-export default function AttributeList() {
- 
-
-  const [attributes, setAttributes] = useState([]);
-  const [loading, setLoading] = useState(true);
-  const [editingAttribute, setEditingAttribute] = useState(null);
-
-  const loadAttributes = async () => {
-    try {
-      const res = await getAttributes();
-      setAttributes(res.data);
-    } catch (err) {
-      console.error("Failed to load attributes", err);
-    } finally {
-      setLoading(false);
-    }
-  };
-
-  useEffect(() => {
-    loadAttributes();
-  }, []);
-
-  if (loading) return <p>Loading...</p>;
+const AttributeList = ({ attributes, onEdit, onViewValues }) => {
+  if (!attributes?.length) {
+    return (
+      <div className="text-center text-slate-500 py-10">
+        No attributes found
+      </div>
+    );
+  }
 
   return (
-    <div className="p-6">
-      <div className="flex justify-between items-center mb-6">
-        <h1 className="text-2xl font-bold">Attributes</h1>
-        <AttributeForm onSuccess={loadAttributes} />
-      </div>
+    <div className="space-y-3">
+      {attributes.map((attr) => (
+        <div
+          key={attr.id}
+          className="bg-white p-4 rounded-lg shadow-sm flex justify-between"
+        >
+          <div className="grid grid-cols-4 gap-4 w-full">
+            <span className="font-medium truncate">{attr.name}</span>
+            <span className="text-sm text-slate-500 truncate">{attr.slug}</span>
+            <span className="text-sm text-slate-500">{attr.dataType}</span>
+            <span className="text-sm text-slate-400">{attr.scope}</span>
+          </div>
 
-      <table className="w-full border">
-        <thead className="bg-gray-100">
-          <tr>
-            <th className="p-3 text-left">Name</th>
-            <th className="p-3 text-left">Type</th>
-            <th className="p-3 text-left">Scope</th>
-            <th className="p-3 text-left">Actions</th>
-          </tr>
-        </thead>
-        <tbody>
-          {attributes.map((attr) => (
-            <tr key={attr.id} className="border-t">
-              <td className="p-3">{attr.name}</td>
-              <td className="p-3">{attr.data_type}</td>
-              <td className="p-3">{attr.scope}</td>
-              <td className="p-3">
-                <button
-                  className="text-yellow-600 mr-3"
-                  onClick={() => setEditingAttribute(attr)}
-                >
-                  Edit
-                </button>
-              </td>
-            </tr>
-          ))}
-        </tbody>
-      </table>
+          <div className="flex gap-2 ml-4">
+            <button
+              onClick={() => onViewValues(attr)}
+              className="bg-green-100 px-3 py-1.5 rounded-md text-sm"
+            >
+              Values
+            </button>
 
-      {editingAttribute && (
-        <AttributeForm
-          attribute={editingAttribute}
-          onClose={() => setEditingAttribute(null)}
-          onSuccess={() => {
-            setEditingAttribute(null);
-            loadAttributes();
-          }}
-        />
-      )}
+            <button
+              onClick={() => onEdit(attr)}
+              className="bg-yellow-100 px-3 py-1.5 rounded-md text-sm"
+            >
+              Edit
+            </button>
+          </div>
+        </div>
+      ))}
     </div>
   );
-}
+};
+
+export default AttributeList;

@@ -1,10 +1,10 @@
 import adminAxios from "./adminAxios";
 
 export const getAttributeValues = (attributeId) =>
-  adminAxios.get(`/api/admin/attributes/${attributeId}/values`);
+  adminAxios.get(`/api/admin/attribute/${attributeId}/values`);
 
 export const createAttributeValue = (attributeId, data) =>
-  adminAxios.post(`/api/admin/attributes/${attributeId}/values`, data);
+  adminAxios.post(`/api/admin/attribute/${attributeId}/values`, data);
 
 export const updateAttributeValue = (id, data) =>
   adminAxios.put(`/api/admin/attribute-values/${id}`, data);

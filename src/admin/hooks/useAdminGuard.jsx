@@ -1,12 +1,12 @@
 import { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-import { getToken } from "../../utils/token";
+import { getAdminToken } from "../../utils/authStorage";
 
 export default function useAdminGuard() {
   const navigate = useNavigate();
 
   useEffect(() => {
-    const token = getToken();
+    const token = getAdminToken();
 
     if (!token) {
       navigate("/admin/login");

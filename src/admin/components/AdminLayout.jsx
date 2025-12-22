@@ -2,7 +2,7 @@ import useAdminGuard from "../hooks/useAdminGuard";
 import { NavLink, Outlet } from "react-router-dom";
 
 export default function AdminLayout() {
- 
+ useAdminGuard();
 
   return (
     <div className="flex min-h-screen bg-gray-100">
@@ -57,6 +57,16 @@ export default function AdminLayout() {
             }
           >
             Products
+          </NavLink>
+           <NavLink
+            to="/admin/brands"
+            className={({ isActive }) =>
+              `block px-3 py-2 rounded ${
+                isActive ? "bg-yellow-400 text-black" : "hover:bg-gray-800"
+              }`
+            }
+          >
+            Brands
           </NavLink>
         </nav>
       </aside>

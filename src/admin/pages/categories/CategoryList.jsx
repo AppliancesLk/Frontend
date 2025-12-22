@@ -1,72 +1,47 @@
-import { useEffect, useState } from "react";
-import useAdminGuard from "../../hooks/useAdminGuard";
-import { getCategories } from "../../api/category.api";
-import CategoryForm from "./CategoryForm";
+import React from "react";
 
-export default function CategoryList() {
- 
-
-  const [categories, setCategories] = useState([]);
-  const [loading, setLoading] = useState(true);
-  const [editingCategory, setEditingCategory] = useState(null);
-
-  const loadCategories = async () => {
-    try {
-      const res = await getCategories();
-      setCategories(res.data);
-    } catch (err) {
-      console.error("Failed to load categories", err);
-    } finally {
-      setLoading(false);
-    }
-  };
-
-  useEffect(() => {
-    loadCategories();
-  }, []);
-
-  if (loading) return <p>Loading...</p>;
+const CategoryList = ({ categories, onEdit }) => {
+  if (!categories || categories.length === 0) {
+    return (
+      <div className="text-center text-slate-500 py-10">
+        No categories found
+      </div>
+    );
+  }
 
   return (
-    <div className="p-6">
-      
+    <div className="space-y-3">
+      {categories.map((category) => (
+        <div
+          key={category.id}
+          className="bg-white rounded-lg shadow-sm p-4 flex items-center justify-between hover:shadow-md transition"
+        >
+          <div className="grid grid-cols-1 sm:grid-cols-3 gap-2 sm:gap-4 w-full">
+            <h4 className="font-medium text-slate-800 truncate">
+              {category.name}
+            </h4>
 
-      <table className="w-full border">
-        <thead className="bg-gray-100">
-          <tr>
-            <th className="p-3 text-left">Name</th>
-            <th className="p-3 text-left">Slug</th>
-            <th className="p-3 text-left">Actions</th>
-          </tr>
-        </thead>
-        <tbody>
-          {categories.map((cat) => (
-            <tr key={cat.id} className="border-t">
-              <td className="p-3">{cat.name}</td>
-              <td className="p-3">{cat.slug}</td>
-              <td className="p-3">
-                <button
-                  className="text-yellow-600 mr-3"
-                  onClick={() => setEditingCategory(cat)}
-                >
-                  Edit
-                </button>
-              </td>
-            </tr>
-          ))}
-        </tbody>
-      </table>
+            <p className="text-sm text-slate-500 truncate">
+              {category.slug || "-"}
+            </p>
 
-      {editingCategory && (
-        <CategoryForm
-          category={editingCategory}
-          onClose={() => setEditingCategory(null)}
-          onSuccess={() => {
-            setEditingCategory(null);
-            loadCategories();
-          }}
-        />
-      )}
+            <p className="text-sm text-slate-400 truncate">
+              {category.description || "-"}
+            </p>
+          </div>
+
+          <div className="ml-4">
+            <button
+              onClick={() => onEdit(category)}
+              className="bg-yellow-100 hover:bg-yellow-200 text-slate-700 px-3 py-1.5 rounded-md text-sm font-medium"
+            >
+              Edit
+            </button>
+          </div>
+        </div>
+      ))}
     </div>
   );
-}
+};
+
+export default CategoryList;
