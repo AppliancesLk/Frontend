@@ -1,1 +1,15 @@
 @import "tailwindcss";
+
+/* Hide scrollbars for scrollable containers */
+::-webkit-scrollbar {
+  display: none;
+}
+
+.scrollbar-hide {
+  scrollbar-width: none; /* Firefox */
+  -ms-overflow-style: none; /* IE and Edge */
+}
+ body{
+    margin-left: 3%;
+    margin-right: 3%;
+ }
