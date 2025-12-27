@@ -39,7 +39,7 @@ export default function Footer() {
             <a href="#" className="hover:text-yellow-400 transition"><FaLinkedinIn /></a>
           </div>
           <p className="text-sm text-gray-400">
-            E-Shop is your one-stop online store for electronics, accessories, and more. Enjoy secure shopping, fast delivery, and exclusive deals this holiday season.
+            Appliance.lk is your one-stop online store for electronics, accessories, and more. Enjoy secure shopping, fast delivery, and exclusive deals this holiday season.
           </p>
         </div>
       </div>
@@ -49,7 +49,7 @@ export default function Footer() {
 
       {/* Copyright */}
       <div className="max-w-6xl mx-auto px-6 py-4 text-center text-gray-400 text-sm">
-        &copy; {new Date().getFullYear()} E-Shop. All Rights Reserved.
+        &copy; {new Date().getFullYear()} Appliance.lk. All Rights Reserved.
       </div>
     </footer>
   );

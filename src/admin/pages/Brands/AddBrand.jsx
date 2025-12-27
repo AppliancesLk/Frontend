@@ -1,16 +1,21 @@
 import React, { useEffect, useState } from "react";
+import ProductImageUploader from "../../components/ProductImageUploader";
 
 export const AddBrand = ({ mode, onClose, brand, onSubmit }) => {
   const [name, setName] = useState("");
   const [slug, setSlug] = useState("");
   const [description, setDescription] = useState("");
+  const [logo_url , setLogoUrl] = useState([]);
+  const [banner_url, setBannerUrl] = useState([]);
   const [error, setError] = useState("");
 
   useEffect(() => {
     if (brand) {
-      setName(brand.name || "");
-      setSlug(brand.slug || "");
-      setDescription(brand.description || "");
+      setName(brand?.name || "");
+      setSlug(brand?.slug || "");
+      setDescription(brand?.description || "");
+      setLogoUrl(brand?.logo_url ? [brand?.logo_url] : []);
+      setBannerUrl(brand?.banner_url ? [brand?.banner_url] : [])
     }
   }, [brand]);
 
@@ -22,7 +27,7 @@ export const AddBrand = ({ mode, onClose, brand, onSubmit }) => {
       return;
     }
 
-    onSubmit({ name, slug, description });
+    onSubmit({ name, slug, description , logo_url: logo_url[0],banner_url: banner_url[0] });
   };
 
   return (
@@ -69,6 +74,15 @@ export const AddBrand = ({ mode, onClose, brand, onSubmit }) => {
               placeholder="Brand description"
               className="w-full px-3 py-2 border rounded-md resize-none h-24 focus:ring-2 focus:ring-yellow-400 outline-none"
             />
+          </div>
+
+          <div>
+            Add Logo
+            <ProductImageUploader images={logo_url} setImages={setLogoUrl} numberOfimage={1}/>
+          </div>
+           <div>
+            Add Banner
+            <ProductImageUploader images={banner_url} setImages={setBannerUrl} numberOfimage={1}/>
           </div>
 
           <div className="flex gap-3 mt-6">

@@ -28,6 +28,8 @@ export default function ProductDetailPage() {
     return resolveVariant(product.variants, selectedAttributes);
   }, [product, selectedAttributes]);
 
+  console.log("selectedVariant",selectedVariant)
+
   if (loading) return <div className="p-6 text-center">Loading…</div>;
   if (error) return <div className="p-6 text-center text-red-500">{error}</div>;
   if (!product) return null;

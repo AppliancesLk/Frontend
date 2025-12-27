@@ -1,25 +1,36 @@
 import React, { useEffect, useState } from "react";
+import ProductImageUploader from "../../components/ProductImageUploader";
 
 const CategoryFormDrawer = ({ mode, category, onClose, onSubmit }) => {
+ 
+  const [image, setImage] = useState([]);
+  
   const [form, setForm] = useState({
     name: "",
     slug: "",
     description: "",
+    image_url: "",
   });
 
   useEffect(() => {
     if (category) {
       setForm({
-        name: category.name || "",
-        slug: category.slug || "",
-        description: category.description || "",
+        name: category?.name || "",
+        slug: category?.slug || "",
+        description: category?.description || "",
+        image_url: category?.image_url || "",
       });
+      setImage(category?.image_url ? [category?.image_url] : [])
+      
     }
   }, [category]);
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    onSubmit(form);
+    onSubmit({
+      ...form,
+      image_url:image[0],
+    });
   };
 
   return (
@@ -67,6 +78,8 @@ const CategoryFormDrawer = ({ mode, category, onClose, onSubmit }) => {
             rows={3}
             className="w-full border rounded-md px-3 py-2 focus:ring-2 focus:ring-yellow-400 outline-none resize-none"
           />
+
+           <ProductImageUploader images={image} setImages={setImage} numberOfimage={1}/>
 
           <div className="flex gap-3 pt-2">
             <button

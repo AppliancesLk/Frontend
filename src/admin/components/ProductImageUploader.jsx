@@ -4,16 +4,23 @@ import axios from "axios";
 const CLOUDINARY_URL = "https://api.cloudinary.com/v1_1/dqguy6ae8/upload";
 const UPLOAD_PRESET = "product_images_unsigned";
 
-const ProductImageUploader = ({ images = [], setImages }) => {
+const ProductImageUploader = ({ images = [], setImages , numberOfimage}) => {
   const [uploading, setUploading] = useState(false);
+
+  console.log("images",images)
 
   /* -------------------- NORMALIZE IMAGES -------------------- */
   const normalizedImages = images.map((img) =>
     typeof img === "string" ? img : img.url
   );
 
+
+
+  const [limitexceed, setLimitExceed] = useState(numberOfimage <= images.length);
+  console.log("limitexceed",numberOfimage <= images.length)
   /* -------------------- UPLOAD -------------------- */
   const handleFiles = async (e) => {
+    console.log("call this ")
     const files = Array.from(e.target.files || []);
     if (!files.length) return;
 
@@ -27,11 +34,12 @@ const ProductImageUploader = ({ images = [], setImages }) => {
       try {
         const res = await axios.post(CLOUDINARY_URL, formData);
         setImages((prev) => [...prev, res.data.secure_url]);
+       
       } catch (err) {
         console.error("Upload failed:", err);
       }
     }
-
+    setLimitExceed(numberOfimage <= images.length)
     setUploading(false);
   };
 
@@ -42,6 +50,7 @@ const ProductImageUploader = ({ images = [], setImages }) => {
         (typeof img === "string" ? img : img.url) !== url
       )
     );
+     setLimitExceed(numberOfimage <= images.length)
   };
 
   return (
@@ -55,7 +64,7 @@ const ProductImageUploader = ({ images = [], setImages }) => {
           accept="image/*"
           className="hidden"
           onChange={handleFiles}
-          disabled={uploading}
+          disabled={uploading || limitexceed}
         />
       </label>
 

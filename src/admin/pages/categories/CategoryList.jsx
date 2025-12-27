@@ -17,6 +17,19 @@ const CategoryList = ({ categories, onEdit }) => {
           className="bg-white rounded-lg shadow-sm p-4 flex items-center justify-between hover:shadow-md transition"
         >
           <div className="grid grid-cols-1 sm:grid-cols-3 gap-2 sm:gap-4 w-full">
+            <span className="w-16 h-10 ">
+                {category?.image_url ? (
+                  <img
+                    src={category?.image_url}
+                    alt={category?.name}
+                    className="w-full h-full object-cover rounded"
+                  />
+                ) : (
+                  <div className="w-full h-full bg-slate-200 flex items-center justify-center text-slate-500 text-xs rounded">
+                    No Image
+                  </div>
+                )}
+              </span>
             <h4 className="font-medium text-slate-800 truncate">
               {category.name}
             </h4>
@@ -25,9 +38,7 @@ const CategoryList = ({ categories, onEdit }) => {
               {category.slug || "-"}
             </p>
 
-            <p className="text-sm text-slate-400 truncate">
-              {category.description || "-"}
-            </p>
+            
           </div>
 
           <div className="ml-4">

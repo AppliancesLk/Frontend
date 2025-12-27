@@ -57,7 +57,7 @@ export default function HeroSection() {
   const slide = slides[index];
 
   return (
-    <section className="relative mt-20 mb-10 h-100 md:h-110 rounded-2xl overflow-hidden ">
+    <section className="relative mt-22 mb-20 h-140 md:h-150 rounded-2xl overflow-hidden ">
       {/* Background Image */}
       <AnimatePresence mode="wait">
         <motion.div

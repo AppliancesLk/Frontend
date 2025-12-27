@@ -14,12 +14,14 @@ const DEFAULT_FILTERS = {
 export const useGetProducts = () => {
     const [searchParams] = useSearchParams();
 const initialCategory = searchParams.get("category");
+const initialBrand = searchParams.get("brand");
+const initialSearchValue = searchParams.get("q")
 
   const [products, setProducts] = useState([]);
   const [filters, setFilters] = useState({
-    q: "",
+    q: initialSearchValue || "",
     category: initialCategory || "",
-    brand: "",
+    brand: initialBrand || "",
     model: "",
     price_min: "",
     price_max: "",
@@ -61,18 +63,34 @@ const initialCategory = searchParams.get("category");
   }, [loadProducts]);
 
   /* ---------------- Filter helpers ---------------- */
-  const updateFilter = (key, value) => {
-    setPage(1); // reset page on filter change
-    setFilters((prev) => ({
-      ...prev,
-      [key]: value,
-    }));
-  };
+
 
   const resetFilters = () => {
     setPage(1);
     setFilters(DEFAULT_FILTERS);
   };
+
+
+  const updateFilter = (key, value) => {
+  setPage(1);
+
+  setFilters((prev) => {
+    const next = { ...prev, [key]: value };
+
+    // reset model when brand changes
+    if (key === "brand") {
+      next.model = "";
+    }
+
+    return next;
+  });
+};
+
+const removeFilter = (key) => {
+  setPage(1);
+  setFilters((prev) => ({ ...prev, [key]: "" }));
+};
+
 
   return {
     products,
@@ -83,6 +101,8 @@ const initialCategory = searchParams.get("category");
     filters,
     updateFilter,
     resetFilters,
+    updateFilter,
+    removeFilter,
 
     // pagination
     page,

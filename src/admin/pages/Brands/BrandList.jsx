@@ -17,13 +17,24 @@ function BrandList({ brands, onEdit, onViewModels, onAddModel }) {
           className="bg-white rounded-lg shadow-sm p-4 flex justify-between items-center"
         >
           <div className="grid grid-cols-1 sm:grid-cols-3 gap-1 sm:gap-4 w-full">
+             <span className="w-16 h-10 ">
+                {brand?.logo_url ? (
+                  <img
+                    src={brand?.logo_url}
+                    alt={brand?.name}
+                    className="w-full h-full object-cover rounded"
+                  />
+                ) : (
+                  <div className="w-full h-full bg-slate-200 flex items-center justify-center text-slate-500 text-xs rounded">
+                    No Image
+                  </div>
+                )}
+              </span>
             <h4 className="font-medium text-slate-800 truncate">
               {brand.name}
             </h4>
             <p className="text-sm text-slate-500 truncate">{brand.slug}</p>
-            <p className="text-sm text-slate-400 truncate">
-              {brand.description || "-"}
-            </p>
+            
           </div>
 
           <div className="flex gap-2 ml-4 shrink-0">

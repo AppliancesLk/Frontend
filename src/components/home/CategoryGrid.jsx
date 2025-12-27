@@ -2,27 +2,15 @@ import Feather from "feather-icons-react";
 import { useNavigate } from "react-router-dom";
 import { useCategories } from "../../hooks/useCategories";
 
-export default function CategoryGrid() {
+const  CategoryGrid = () => {
   const { categories, loading } = useCategories();
   const navigate = useNavigate();
-  console.log("categories",categories)
-
-  if (loading) return null;
+  
+  if (loading) return <>Loading categories</>;
 
   return (
     <section className="px-6 py-10">
-      <div className="flex justify-between items-center">
-        <h3 className="text-2xl font-bold text-black">
-          Categories
-        </h3>
-        <button
-          onClick={() => navigate("/products")}
-          className="cursor-pointer flex items-center"
-        >
-          View all
-          <Feather icon="chevron-right" size={16} className="ml-2" />
-        </button>
-      </div>
+ 
 
       <div className="flex gap-10 overflow-x-auto scrollbar-hide pb-4 justify-center">
         {categories.map((cat) => (
@@ -45,9 +33,16 @@ export default function CategoryGrid() {
               "
             >
               <img
-                src={cat.image}
+                src={cat.image_url}
                 alt={cat.name}
-                className="w-full h-full object-cover"
+                className="
+              max-h-full
+              max-w-full
+              object-contain
+              transition-transform
+              duration-300
+              group-hover:scale-105
+            "
               />
             </div>
 
@@ -60,3 +55,4 @@ export default function CategoryGrid() {
     </section>
   );
 }
+ export default CategoryGrid

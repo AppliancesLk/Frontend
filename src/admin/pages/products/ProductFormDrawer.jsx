@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { getModels } from "../../api/model.api";
-import ProductImageUploader from "./ProductImageUploader";
+import ProductImageUploader from "../../components/ProductImageUploader";
 
 const ProductFormDrawer = ({
   mode,
