@@ -8,3 +8,6 @@ export const createProduct = (data) =>
 
 export const updateProduct = (id, data) =>
   adminAxios.put(`/api/admin/products/${id}`, data);
+
+export const deleteProduct = (id) =>
+  adminAxios.delete(`/api/admin/products/${id}`);

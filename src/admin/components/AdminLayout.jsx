@@ -5,7 +5,7 @@ export default function AdminLayout() {
  useAdminGuard();
 
   return (
-    <div className="flex min-h-screen bg-gray-100">
+    <div className="flex min-h-screen bg-gray-100 m- -ml-14.5 -mr-14">
       
       {/* Sidebar */}
       <aside className="w-64 bg-black text-white flex flex-col">

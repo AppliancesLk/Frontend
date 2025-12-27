@@ -9,6 +9,7 @@ import AdminLogin from "./admin/pages/Login";
 import AdminDashboard from "./admin/pages/Dashboard";
 
 import AdminApp from "./admin/AdminApp";
+import ProductList from "./pages/product/ProductList";
 
 function App() {
   return (
@@ -19,7 +20,9 @@ function App() {
      
         <Route path="/" element={<LandingPage />} />
         <Route path="/product/:id" element={<ProductDetailPage />} />
+        
         <Route path="/login" element={<LoginPage />} />
+        <Route path="/products" element={<ProductList />} />
         <Route path="/register" element={<RegisterPage />} />
 
       </Routes>
