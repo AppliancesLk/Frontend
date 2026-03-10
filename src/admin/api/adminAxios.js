@@ -2,7 +2,7 @@ import axios from "axios";
 import { getAdminToken } from "../../utils/authStorage";
 
 const adminAxios = axios.create({
-  baseURL: import.meta.env.REACT_APP_API_BASE_URL,
+  baseURL: import.meta.env.VITE_API_BASE_URL,
 });
 
 adminAxios.interceptors.request.use((config) => {
